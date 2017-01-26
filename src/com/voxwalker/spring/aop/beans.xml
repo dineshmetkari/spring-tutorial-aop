@@ -7,4 +7,14 @@
 
 
 	<bean id="camera" class="com.voxwalker.spring.aop.Camera"></bean>
+	<bean id="logger" class="com.voxwalker.spring.aop.Logger"></bean>
+	<aop:config>
+		<aop:pointcut
+			expression="execution(void com.voxwalker.spring.aop.Camera.snap())"
+			id="camerasnap" />
+		<aop:aspect id="loggeraspect" ref="logger">
+			<aop:before method="aboutToTakePhoto"
+				pointcut-ref="camerasnap" />
+		</aop:aspect>
+	</aop:config>
 </beans>
